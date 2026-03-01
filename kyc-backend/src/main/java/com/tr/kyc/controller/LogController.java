@@ -9,7 +9,6 @@ import com.tr.kyc.repository.LogEventRepository;
 
 @RestController
 @RequestMapping("/api/logs")
-@CrossOrigin
 public class LogController {
 
     private final LogEventRepository repo;
@@ -19,8 +18,10 @@ public class LogController {
     }
 
     @GetMapping
-    public Page<LogEvent> list(@RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "20") int size) {
+    public Page<LogEvent> list(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "20") int size
+    ) {
         return repo.findAll(PageRequest.of(page, size));
     }
 }
